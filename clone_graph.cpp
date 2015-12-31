@@ -1,6 +1,7 @@
+//This program clones an undirected graph
+
 #include "stdafx.h"
 #include <string.h>
-#include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -19,6 +20,11 @@ struct queue {
    int bottom;
 };  
 
+/*
+ This program clones an undirected graph
+ Input: graph - The pointer to the root node of the graph that is going to be cloned
+ Output: the cloned graph 
+*/
 struct UndirectedGraphNode *cloneGraph(struct UndirectedGraphNode *graph) {
  
     if (graph == NULL) return NULL;
@@ -71,7 +77,7 @@ struct UndirectedGraphNode *cloneGraph(struct UndirectedGraphNode *graph) {
             }
             else
             {
-				//update the n node's neighbor list in the cloneMap
+		//update the n node's neighbor list in the cloneMap
                 cloneMap[n->label]->neighbors[i]=cloneMap[neighbor->label];
             }
         }
