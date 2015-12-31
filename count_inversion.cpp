@@ -5,16 +5,6 @@
 #include <stdlib.h>
 #include <math.h>
 
-typedef  unsigned char      boolean;     /* Boolean value type. */
-typedef  signed char        int8;        /* Signed 8  bit value */
-typedef  unsigned char      uint8;       /* Unsigned 8  bit value */
-typedef  signed short       int16;       /* Signed 16 bit value */
-typedef  unsigned short     uint16;      /* Unsigned 16 bit value */
-typedef  signed long        int32;       /* Signed 32 bit value */
-typedef  unsigned long      uint32;      /* Unsigned 32 bit value */
-typedef  signed long long   int64;       /* Signed 64 bit value */
-typedef  unsigned long long uint64;      /* Unsigned 64 bit value */
-
 uint32 merge_count_split(int sorted_array[], int aux_array[], int lo, int mid, int hi)
 {
 	int i,j,k;
