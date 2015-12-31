@@ -5,6 +5,16 @@
 #include <stdlib.h>
 #include <math.h>
 
+/*
+  This function sorts the aux_array and put the result into the sorted array using merge sort. 
+  It also counts the number of times inversion happens between the 1st and 2nd half of the array
+  Input: sorted_array[] - an array of unsorted items before calling this function and sorted items after this function is executed
+         aux_array[] - an empty array which is used as a temporary storage during merge sort.  It has the same size as the sorted array
+         lo - array index of the 1st element
+         mid - array index of the middle element
+         hi - array index of the last element
+  Output: The number of inversions between the first and second half of the sorted array
+*/
 uint32 merge_count_split(int sorted_array[], int aux_array[], int lo, int mid, int hi)
 {
 	int i,j,k;
@@ -46,6 +56,14 @@ uint32 merge_count_split(int sorted_array[], int aux_array[], int lo, int mid, i
 	return count_inv;
 }
 
+/*
+  This is the main function for the merge sort algorithm.
+  Input: sorted_array[] - an array of unsorted items before calling this function and sorted items after this function is executed
+         aux_array[] - an empty array which is used as a temporary storage during merge sort.  It has the same size as the sorted array
+         lo - array index of the 1st element
+         hi - array index of the last element
+  Output: The number of inversions between the first and second half of the sorted array
+*/
 uint32 sort_count_inversion(int sorted_array[], int aux_array[], int lo, int hi)
 {
 	if(hi <= lo)
@@ -61,6 +79,7 @@ uint32 sort_count_inversion(int sorted_array[], int aux_array[], int lo, int hi)
 	return (x+y+z);
 }
 
+/*This function tests the merge sort algorithm*/
 void count_inversion_test()
 {
 	FILE *fr;
@@ -69,9 +88,9 @@ void count_inversion_test()
 
 	fr = fopen("IntegerArray.txt","r");
 	if (fr == NULL)
-    {
-        printf("Error Reading File\n");
-    }
+        {
+          printf("Error Reading File\n");
+        }
 	else
 	{
 	  for (i = 0; i < line_size; i++)  //for char, while(fgetc(line, line_size, fr) != EOF), for string, while(fgets(line, line_size, fr) != NULL)
@@ -82,13 +101,13 @@ void count_inversion_test()
 
 	  uint32 total_inv;
 	  int aux_array[line_size];
-	  //array_A[0] = 1; array_A[1] = 3; array_A[2]=5; array_A[3]=2; array_A[4]=4; array_A[5] = 7; array_A[6]=6;
 
 	  total_inv = sort_count_inversion(line,aux_array,0,line_size-1);
 	  printf("The number of inversion is %lu\n",total_inv);
-	  /*for (int cnt = 0; cnt < array_size; cnt++)
+	  
+	  for (int cnt = 0; cnt < array_size; cnt++)
 	  {
-		printf("output_array[%d] = %d\n",cnt,line[cnt]);
-	  }*/
+		printf("After sorting, output_array[%d] = %d\n",cnt,line[cnt]);
+	  }
 	}
 }
