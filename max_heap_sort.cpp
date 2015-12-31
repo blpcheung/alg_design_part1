@@ -1,4 +1,4 @@
-//====================================MaxHeapSort==========================================
+//This program creates max heap and implements heap sorting
 
 #include "stdafx.h"
 #include <string.h>
@@ -7,6 +7,12 @@
 #include <stdlib.h>
 #include <math.h>
 
+/*
+  This function creates maximum heap
+  Input: nums - an array of numbers
+         numsSize - size of the array
+  Output: max heap 
+*/
 int *GenMaxHeap(int* nums, int numsSize) {
     
     //create a max heap
@@ -37,9 +43,15 @@ int *GenMaxHeap(int* nums, int numsSize) {
         }    
     }
     
-	return maxHeap;
+    return maxHeap;
 }
 
+/*
+  This function implements heap sorting
+  Input: max_heap - max heap
+         heap_size - size of the heap
+  Output: a sorted array (in ascending order)
+*/
 int *MaxHeapSort(int *max_heap, int heap_size)
 {
 	int *sorted_array = (int *)malloc(sizeof(int)*(heap_size-1));
@@ -56,7 +68,7 @@ int *MaxHeapSort(int *max_heap, int heap_size)
 
 		//Bubble down
 		parent = 1;
-	    child_left = parent * 2;
+	    	child_left = parent * 2;
 		child_right = parent * 2 + 1;
 
 		if (max_heap[child_left] > max_heap[child_right])   //select the larger child of the two to swap
@@ -103,6 +115,7 @@ int *MaxHeapSort(int *max_heap, int heap_size)
 	return sorted_array;
 }
 
+/*This function tests the implementation of max heap and heap sorting*/
 void TestMaxHeapSort()
 {
 	const int numsSize = 19;
@@ -119,7 +132,7 @@ void TestMaxHeapSort()
 	}
 	else
 	{
-      for (i = 0; i<numsSize; i++)
+      	  for (i = 0; i<numsSize; i++)
 	  {
 		fscanf(fr,"%d",&nums[i]);
 	  }
