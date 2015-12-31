@@ -1,4 +1,4 @@
-//============================= BST ====================================================
+//This program contains functions for Binary Search Tree */
 
 #include "stdafx.h"
 #include <string.h>
@@ -153,7 +153,7 @@ struct node *insert(struct node *bst, int data)
    } 
    else
    {
-	 if (bst->data > data)
+     if (bst->data > data)
      {
 	   bst->left = insert(bst->left, data);
      }
@@ -168,7 +168,7 @@ struct node *insert(struct node *bst, int data)
 		bst = rotateLeft(bst);
 	 if (isRed(bst->left) && isRed(bst->left->left))  //2 consecutive red links on the left
 	    bst = rotateRight(bst);
-     if (isRed(bst->left) && isRed(bst->right))      //split 4 nodes
+     	 if (isRed(bst->left) && isRed(bst->right))      //split 4 nodes
 	    bst = flipColors(bst);
 #endif
      return (bst);  //return the new root pointer
@@ -277,7 +277,7 @@ struct node *deleteNode(struct node *bst, int key)   //Worst case run time: O(lo
 		}
 		else      //predecessor is the max value of the left subtree of the key_node
 		{
-          parent_pred_node = key_node->left;
+          	  parent_pred_node = key_node->left;
 		  while (parent_pred_node->right->right != NULL)   //find the parent_pred_node first.  Worst case run time for balanced tree: O(log n)
 			parent_pred_node = parent_pred_node->right;
 
@@ -293,14 +293,14 @@ struct node *deleteNode(struct node *bst, int key)   //Worst case run time: O(lo
 		
 		//delete the pred_node
 		if (pred_node->left == NULL)   //no left child, just delete the key.  Note in this case pred_node->right is always NULL
-	    {
+	    	{
 			if (parent_pred_node == key_node)
 				parent_pred_node->left = NULL;
 			else
 				parent_pred_node->right = NULL;
-	    }
+	    	}
 		else   //if the prev_node has 1 left child, need to move up the child to its parent 
-	    {
+	    	{
 			if (parent_pred_node == key_node)
 				parent_pred_node->left = pred_node->left;
 			else
@@ -386,6 +386,27 @@ int sameTree(struct node* a, struct node* b)
    }
 }
 
+//Find the min. depth of a binary tree
+int minDepth(struct node* root) 
+{
+  int left=INT_MAX, right=INT_MAX;
+  if (root == NULL) return 0;
+
+  if (root->left == NULL && root->right == NULL)
+	  return 1;
+
+  if (root->left != NULL)
+	  left = minDepth(root->left) + 1;
+
+  if (root->right != NULL)
+	  right = minDepth(root->right) + 1;
+
+  if (left < right)
+	  return left;
+  else
+	  return right;
+}
+
 int isBST(struct node* bst)
 {
 	if (bst == NULL) return true;
@@ -419,4 +440,46 @@ struct node* lowestCommonAncestorBST(struct node* root, struct node* p, struct n
    }
    
    return curr;
+}
+
+struct node* buildTree()
+{
+   struct node *root = NULL;
+   root = insert(root,3);
+   root = insert(root,1);
+   root = insert(root,5);
+   root = insert(root,4);
+   root = insert(root,0);
+   root = insert(root,2);
+   return root;
+}
+
+void TestBST()
+{
+	node* bst=buildTree();
+	printPaths(bst); printf("\n");
+	struct node *node1 = newNode(2);
+	struct node *node5 = newNode(5);
+	struct node *node_LCA = lowestCommonAncestorBST(bst,node1,node5);
+	printf("The LCA of node %d and node %d is node %d\n",node1->data,node5->data,node_LCA->data);
+
+	int min_depth = minDepth(bst);
+	printf("The min. depth of the tree is %d",min_depth);
+	
+	int key = 5;
+	int pred = findPredecessor(bst,key);
+	printf("The predecessor of key %d is %d",key,pred);*/
+	printPostOrder(bst);
+	printPaths(bst); printf("\n");
+	int result = isBST(bst);
+	printf("Result is %d\n",result);
+	
+	int min_val = minValue(bst);
+	int max_val = maxValue(bst);
+	int depth = maxDepth(bst);
+	printf("min_val = %d, max_val = %d, depth = %d\n",min_val,max_val,depth);
+	
+	mirror(bst);
+	doubleTree(bst);
+	printPaths(bst); printf("\n");
 }
