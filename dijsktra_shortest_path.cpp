@@ -8,6 +8,18 @@
 #include <stdlib.h>
 #include <math.h>
 
+struct UndirectedGraphNode {
+      unsigned int label;   
+      struct UndirectedGraphNode *neighbors[NEIGHBORS_MAX_SIZE];
+      unsigned int neighborsCount;
+};
+
+/*
+  This function calculates the Dijsktra's shortest path from the source node to all other nodes
+  Input: graphMap[] - graph topology
+         src - source node
+         A[] - an array of shortest distrances from the source node to all other nodes 
+ */ 
 void DijsktraShortestPath(struct UndirectedGraphVertex *graphMap[], int src, int A[])
 {
 	int graphMapIdx = src-1;
@@ -28,8 +40,8 @@ void DijsktraShortestPath(struct UndirectedGraphVertex *graphMap[], int src, int
 		bool first_time=true;
 		for (i = 0; i < NUM_VERTICES; i++)//all the crossing edges from X to V-X 
 		{
-          if (X[i] == true) 
-		  {
+                       if (X[i] == true) 
+		       {
 			  for (j = 0; j<graphMap[i]->neighborsCount; j++)
 			  {
 				  if (X[graphMap[i]->neighbors_list[j]-1] == false) //this node in X has the crossing edge to V-X
@@ -50,8 +62,8 @@ void DijsktraShortestPath(struct UndirectedGraphVertex *graphMap[], int src, int
 						}
 					  }
 				  }
-			  }
-		  }
+			 }
+		     }
 		}
 		 
 		if (first_time) //no new node is added to X
@@ -78,17 +90,16 @@ void TestShortestPath()
 	struct UndirectedGraphVertex *graphMap[NUM_VERTICES];
 	int data,n;
 
-    if (fp != NULL){
+    	if (fp != NULL){
 		int graphMap_idx = 0;
 		while (fgets(line, line_size, fp) != NULL)
 		{
-			//printf("Line %d is %s\n",graphMap_idx,line);
 			struct UndirectedGraphVertex *node = (UndirectedGraphVertex *)malloc(sizeof(struct UndirectedGraphVertex));
 			node->neighborsCount = 0;
 			n = 0;
 			pch = strtok (line," ,\t");   //for each line, read the number with \t as the delimiter
-            while (pch != NULL)
-            {
+            		while (pch != NULL)
+            		{
 				data = atoi(pch);
 
 				if (data == 0) break;
@@ -110,16 +121,13 @@ void TestShortestPath()
 				}
 				n++;
 				pch = strtok (NULL," ,\t");
-             //   printf ("data = %d ",data);
 			  
 			}
-			//printf("\n");
 			graphMap[graphMap_idx] = node;
 			graphMap_idx++;
-
 		}
-        fclose (fp);
-    }
+        	fclose (fp);
+    	}
 
 	int src_node = 1;
 	int shortestDistArray[NUM_VERTICES];
