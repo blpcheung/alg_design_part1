@@ -25,7 +25,7 @@ struct queue {
  Input: graph - The pointer to the root node of the graph that is going to be cloned
  Output: the cloned graph 
 */
-struct UndirectedGraphNode *cloneGraph(struct UndirectedGraphNode *graph) {
+struct UndirectedGraphNode *CloneGraph(struct UndirectedGraphNode *graph) {
  
     if (graph == NULL) return NULL;
      
@@ -85,6 +85,7 @@ struct UndirectedGraphNode *cloneGraph(struct UndirectedGraphNode *graph) {
     return cloneRoot;
 }
 
+/* This function tests CloneGraph*/
 void TestCloneGraph()
 {
 /*
@@ -128,7 +129,7 @@ Create this graph for testing
 		printf("graph->neighbors[%d]->label=%d\n",j,graph->neighbors[j]->label);
 	}
 
-	struct UndirectedGraphNode *clone_graph = cloneGraph(graph);
+	struct UndirectedGraphNode *clone_graph = CloneGraph(graph);
 
 	printf("clone_graph->label=%d\n",clone_graph->label);
 	printf("clone_graph->neighborsCount=%d\n",clone_graph->neighborsCount);
