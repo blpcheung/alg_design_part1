@@ -1,3 +1,6 @@
+/* This program counts the number of minimum cut of a graph (num. of crossing edges between two non-empty sets) 
+   using the Random Contraction Algorithm */
+
 #include "stdafx.h"
 #include <string.h>
 #include <time.h>
@@ -14,6 +17,14 @@ struct UndirectedGraphVertex {
 
 #define NUM_VERTICES 200
 
+/* 
+   This function implements the Random Contraction Algorithm:
+	 1. Populate the UndirectedGraphNode structure for each line
+	 2. Perform merge
+	 3. Repeat until only 2 nodes left
+   Input: graphMap - pointer to the root node of the graph
+   Output: number of minimum cut of the graph
+*/
 int RandomContractAlg(struct UndirectedGraphVertex **graphMap)
 {
 	int i, num_existed_vertices=0, existed_vertices[NUM_VERTICES];
@@ -112,14 +123,9 @@ int RandomContractAlg(struct UndirectedGraphVertex **graphMap)
 
 }
 
+/*This function tests the Random Contraction Algorithm*/
 void TestFindMinCut()
 {
-	/*
-	 1. Populate the UndirectedGraphNode structure for each line
-	 2. Perform merge
-	 3. Repeat until only 2 nodes left
-	 */
-
 	FILE *fp;
 	
 	fp = fopen("kargerMinCut.txt","r");
@@ -130,15 +136,15 @@ void TestFindMinCut()
 	struct UndirectedGraphVertex *graphMap[NUM_VERTICES];
 	int data,n;
 
-    if (fp != NULL){
+    	if (fp != NULL){
 		int graphMap_idx = 0;
 		while (fgets(line, line_size, fp) != NULL)
 		{
 			struct UndirectedGraphVertex *node = (UndirectedGraphVertex *)malloc(sizeof(struct UndirectedGraphVertex));
 			n = 0;
 			pch = strtok (line,"\t");   //for each line, read the number with \t as the delimiter
-            while (pch != NULL)
-            {
+            		while (pch != NULL)
+            		{
 				data = atoi(pch);
 
 				if (data == 0) break;
@@ -151,7 +157,7 @@ void TestFindMinCut()
 					node->neighbors_list[n-1] = data;
 				}
 				n++;
-			    pch = strtok (NULL,"\t");
+			    	pch = strtok (NULL,"\t");
 			}
 			
 			node->neighborsCount = n-1;
@@ -159,8 +165,8 @@ void TestFindMinCut()
 			graphMap_idx++;
 
 		}
-        fclose (fp);
-    }
+        	fclose (fp);
+    	}
 
 	int i,j,k,num_existed_nodes = 0;
 
@@ -193,7 +199,7 @@ void TestFindMinCut()
 	
 		if (num_existed_nodes < 0)
 		{
-	       	printf("Error!!");
+	       		printf("Error!!");
 			return;
 		}
 	
