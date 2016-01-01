@@ -1,4 +1,4 @@
-//============================== QuickSort =========================================
+//This program implements quickSort and calculates the total number of comparison
 
 #include "stdafx.h"
 #include <string.h>
@@ -7,6 +7,14 @@
 #include <stdlib.h>
 #include <math.h>
 
+/*
+ This function puts all the numbers less than the pivot to the left and larger than the pivot to the right of the pivot
+ Input: input_array[] - an array of unsorted numbers
+        lo - index of the 1st element in the array
+        hi - index of the last element in the array
+        choose_pivot - index of the array where pivot is chosen
+ Output: index of the array where pivot is located
+*/
 int Partition(int input_array[], int lo, int hi, int choose_pivot)
 {
 	int p_idx, i, j, temp;
@@ -79,7 +87,14 @@ int Partition(int input_array[], int lo, int hi, int choose_pivot)
 	return i-1;  //array idx where pivot is located
 }
 
-
+/*
+ This function performs quick sort and also calculates the number of comparison during quick sort.
+ Input: input_array[] - an array of unsorted numbers
+        lo - index of the 1st element in the array
+        hi - index of the last element in the array
+        choose_pivot - index of the array where pivot is chosen
+        total_comp - Total number of comparison
+*/
 void QuickSort(int input_array[], int lo, int hi, int choose_pivot, int *total_comp)
 {
 	if (hi <= lo) return;
@@ -102,9 +117,9 @@ void TestQuickSort()
 	FILE *fr;
 	fr = fopen("QuickSort.txt","r");
 	if (fr == NULL)
-    {
-        printf("Error Reading File\n");
-    }
+    	{
+        	printf("Error Reading File\n");
+    	}
 	else
 	{
 		for (int i = 0; i < array_size; i++)
