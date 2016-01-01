@@ -1,4 +1,4 @@
-//==================================Topological ordering==============================================
+//This program implements topological ordering of a directed graph via depth-first search (DFS)
 
 #include "stdafx.h"
 #include <string.h>
@@ -15,6 +15,9 @@ struct DirectedGraphVertex {
       unsigned int srcCount;
 };
 
+/*
+  This function implements depth-first-search for the 1st pass of the graph as part of topological ordering
+*/
 void DFS_1stPass(struct DirectedGraphVertex** graphMap, int node_label, bool explored_chk[], int finish_time[], int* t)
 {
 	int graphMapIdx = node_label - 1;
@@ -31,12 +34,15 @@ void DFS_1stPass(struct DirectedGraphVertex** graphMap, int node_label, bool exp
 			DFS_1stPass(graphMap,node_j,explored_chk,finish_time,t);
 		}
 	}
-	//finish_order[*t] = node_label;
+	
 	(*t) += 1;
 	finish_time[graphMapIdx] = *t; 
 	printf("Finish_time[%d] = %d\n",node_label,finish_time[graphMapIdx]);
 }
 
+/*
+  This function implements depth-first-search for the 2nd pass of the graph as part of topological ordering
+*/
 void DFS_2ndPass(struct DirectedGraphVertex** graphMap, int node_label, bool explored_chk[], int *leader_size)
 {
 	int graphMapIdx = node_label - 1;
@@ -56,6 +62,7 @@ void DFS_2ndPass(struct DirectedGraphVertex** graphMap, int node_label, bool exp
 	}
 }
 
+
 void TestFindSCC()
 {
 	FILE *fp;
@@ -69,7 +76,7 @@ void TestFindSCC()
 	struct DirectedGraphVertex *graphMap[num_vertices];
 	bool explored_chk[num_vertices];	//indicate if the node has been explored (1) or not (0)
 	int finish_time[num_vertices];		//store node_label in the order of finish time 
-    int leader[num_vertices];			//store the size of SCC for each leader.  Size 0 means not a leader
+    	int leader[num_vertices];			//store the size of SCC for each leader.  Size 0 means not a leader
 	int data,coln_idx,i,j,t=0;
 
 	for (i = 0; i < num_vertices; i++)
@@ -78,7 +85,7 @@ void TestFindSCC()
 		explored_chk[i] = false;
 	}
 
-    if (fp != NULL){
+    	if (fp != NULL){
 		int graphMap_idx = 0;
 		int node_x, node_y;
 		struct DirectedGraphVertex *node;
@@ -88,8 +95,8 @@ void TestFindSCC()
 			printf("Line %d is %s, ",graphMap_idx,line);
 			coln_idx = 0;
 			pch = strtok (line," ");   //for each line, read the number with /t as the delimiter
-            while (pch != NULL)
-            {
+            		while (pch != NULL)
+            		{
 				data = atoi(pch);
 
 				if (coln_idx == 0)  //1st column
@@ -138,8 +145,8 @@ void TestFindSCC()
 			}
 			node->src_list[node->srcCount++] = node_x;
 		}
-        fclose (fp);
-    }
+        	fclose (fp);
+    	}
 
 	//Verify
 	for(i = 0; i < 10; i++)
@@ -168,7 +175,7 @@ void TestFindSCC()
 
 	for (i = 0; i < num_vertices; i++)
 	{
-        //Modify the grpahMap to replace node_label with finish_time and also fwd_list and rev_list
+        	//Modify the grpahMap to replace node_label with finish_time and also fwd_list and rev_list
 		graphMap[i]->label = finish_time[i];
 		for (j = 0; j < graphMap[i]->sinkCount; j++)
 		{
